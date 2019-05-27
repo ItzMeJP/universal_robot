@@ -56,6 +56,7 @@
     <xacro:property name="d4" value="0.163941" />
     <xacro:property name="d5" value="0.1157" />
     <xacro:property name="d6" value="0.0922" />
+    <xacro:property name="d7" value="0.2" /> <!--JP edited-->
 
     <!-- Arbitrary offsets for shoulder/elbow joints -->
     <xacro:property name="shoulder_offset" value="0.220941" />  <!-- measured from model -->
@@ -68,6 +69,7 @@
     <xacro:property name="wrist_1_length" value="${d4 - elbow_offset - shoulder_offset}" />
     <xacro:property name="wrist_2_length" value="${d5}" />
     <xacro:property name="wrist_3_length" value="${d6}" />
+    <xacro:property name="gripper_length" value="${d7}" /> <!--JP edited-->
 
     <link name="${prefix}base_link" >
       <visual>
@@ -322,6 +324,14 @@
       <origin xyz="0 ${wrist_3_length} 0" rpy="${pi/-2.0} 0 0"/>
       <parent link="${prefix}wrist_3_link"/>
       <child link="${prefix}tool0"/>
+    </joint>
+
+    <!-- Gripper frame --> <!--JP edited-->
+    <link name="${prefix}gripper"/>
+    <joint name="${prefix}ee_link-gripper_fixed_joint" type="fixed">
+      <origin xyz="${gripper_length} 0 0" rpy="0 ${pi/-2.0} 0"/>
+      <parent link="${prefix}ee_link"/>
+      <child link="${prefix}gripper"/>
     </joint>
 
   </xacro:macro>
